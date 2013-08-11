@@ -1,0 +1,9 @@
+<suite name="Selenium Grid with webdriver" verbose="3"  parallel="classes" thread-count="2">
+    <test name="Selenium Grid Demo">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.educo.tests.trash.Gridwithwebdriver"/>
+            <class name="com.educo.tests.trash.gridwithwebdriver2"/>
+        </classes>
+    </test>
+</suite>
