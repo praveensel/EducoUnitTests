@@ -126,7 +126,7 @@ public class SyllabusPageObjects {
     @CacheLookup
     public WebElement AddEditSy;
 
-    @FindBy(how = How.ID_OR_NAME ,using = "lblAssTitle")
+    @FindBy(how = How.XPATH ,using = "//*[@id=\"lblAssTitle\"]")
     @CacheLookup
     public WebElement ResponseSheetTitle;
 
@@ -138,7 +138,7 @@ public class SyllabusPageObjects {
     @CacheLookup
     public WebElement lblQuestcapt;
 
-    @FindBy(how = How.ID_OR_NAME ,using = "RADEDITORSTYLESHEET2")
+    @FindBy(how = How.XPATH ,using = "//html/body")
     @CacheLookup
     public WebElement MultpleChcQstnTxtBox;
 
@@ -176,6 +176,10 @@ public class SyllabusPageObjects {
     @FindBy(how = How.ID_OR_NAME ,using = "A2")
     @CacheLookup
     public WebElement ResponseSheettab;
+
+    @FindBy(how = How.XPATH ,using = "//input[@value='Save Response Sheet']")
+    @CacheLookup
+    public WebElement SaveResponseSheet;
 
 
 
@@ -217,10 +221,6 @@ public class SyllabusPageObjects {
         String Survenme="TestResponseSheet";
         sendtext(SurveyName,Survenme);
         btnCreateSurvey.click();
-
-       // driver.switchTo().defaultContent();
-       // waitforFrametoLoad("main");
-       // driver.switchTo().frame("TestTop");
         FramesetSwitch("frmLeft");
         String Responsesheettitlestr=ResponseSheetTitle.getText();
         VerifyTextPresent(Responsesheettitlestr,Survenme);
@@ -238,15 +238,27 @@ public class SyllabusPageObjects {
         waitforFrametoLoad("main");
         boolean result=lblQuestcapt.getText().contains("Question Description");
         waitforFrametoLoad("RadEditor2_contentIframe");
+        waitforElementtoLoad(MultpleChcQstnTxtBox);
         sendtext(MultpleChcQstnTxtBox, "Q1");
+        Switchtodefaultcontetn();
+        waitforFrametoLoad("main");
         QstnOptionstab.click();
         boolean result1=txtNoOptions.getText().contains("5");
         sendtext(answerbox2,"ans1");
         sendtext(answerbox3,"ans2");
         sendtext(answerbox4,"ans3");
         sendtext(answerbox5,"ans4");
+        sendtext(answerbox6,"ans4");
         btnSaveQstn.click();
+        Switchtodefaultcontetn();
+        waitforFrametoLoad("main");
+        FramesetSwitch("frmRight");
+        SaveResponseSheet.click();
 
+    }
+
+    private void Switchtodefaultcontetn() {
+        driver.switchTo().defaultContent();
     }
 
     public void waitforElementtoLoad(WebElement element)
@@ -270,6 +282,11 @@ public class SyllabusPageObjects {
         actions.click();
         actions.perform();
 
+    }
+
+    public void switchframeByElement(WebElement element)
+    {
+        driver.switchTo().frame(element) ;
     }
 
     public void ScriptExecutor(WebElement element)
@@ -305,12 +322,12 @@ public class SyllabusPageObjects {
             for (WebElement framename : frameset)
 
         {
-            String f = framename.getAttribute("name");
+            String f = framename.getAttribute("id");
             System.out.println("frameid: " + f);
             //driver.switchTo().frame(f);
             if (f.equals(Framename1)) {
-
-                waitforFrametoLoad(Framename1);
+                WebElement t=driver.findElement(By.id(f));
+                driver.switchTo().frame(t) ;
                 System.out.println("Switching to frame " + f);
                 break;
             }
