@@ -28,19 +28,32 @@ public  class Logger {
     private   String logFileName = "log.html";
     private   String logPath = reportPath + logFileName;
 
-    public static   void Log(String LOG_FILE, String MESSAGE,WebDriver driver) {
+    public static   void Log(String LOG_FILE,String command, String description,WebDriver driver,boolean success) {
         try{
            // Reporter.setEscapeHtml(false);
             FileWriter fstream;
             fstream = new FileWriter(LOG_FILE,true);
             BufferedWriter out_file = new BufferedWriter(fstream);
             Date timeStamp = new Date();
-            Reporter.log("<br><h3 style='color:red;font-size:14px;background-color:yellow;'>["+timeStamp+"] " + MESSAGE + "</h3>");
-
+            //Reporter.log("<br><h3 style='color:red;font-size:14px;background-color:yellow;'>["+timeStamp+"] " + command + "</h3>");
+            String className = success ? "success" : "error";
+            StringBuilder builder = new StringBuilder();
+            Reporter.log("<table border=\"1\">\n" +
+                    "  <tr>\n" +
+                    "    <th>Method name</th>\n" +
+                    "    <th>Desc</th>\n" +
+                    "    <th>Screenshot</th>\n" +
+                    "  </tr>");
+            Reporter.log(
+                    "<tr class=\"" + className + "\">" +
+                    "<td>" + command  + "</td>" +
+                    "<td>" + description + "</td>" +
+                    "<td> <br/><a href='D:\\GitHub Checkout\\EducoUnitTests\\logs\\screenshots\\screenshot"
+                    + imageCounter + ".png'> Screenshot </a><br/> </td></tr>" );
             imageCounter += 1;
             screenShooter(LOG_FILE,driver,screenPath + imageCounter);
-            out_file.write("["+timeStamp+"] " + MESSAGE);
-            System.out.println("["+timeStamp+"] " + MESSAGE);
+            out_file.write("["+timeStamp+"] " + command);
+            System.out.println("["+timeStamp+"] " + command);
             out_file.newLine();
             out_file.flush();
             out_file.close();
@@ -69,14 +82,15 @@ public  class Logger {
             int beginIndex = absolute.indexOf(".");
             String relative = absolute.substring(beginIndex).replace(".\\","");
             String screenShot = relative.replace('\\','/');
-            Reporter.log("<a href=\"" + screenShot + "\"><p align=\"left\">Screenshot at " + new Date()+ "</p>");
+            //Reporter.log("<a href=\"" + screenShot + "\"><p align=\"left\">Screenshot at " + new Date()+ "</p>");
             //Reporter.log("<p style='border:1px solid red;'><img width=\"800\" src=\"" + dest.getAbsoluteFile()  + "\" alt=\"screenshot at " + new Date()+ "\"/></p></a><br />");
-            Reporter.log("<img src=\"" + dest.getAbsoluteFile() + "\" style=\"display: block; opacity: 1; min-width: 0px; min-height: 0px; max-width: none; max-height: none; width: 530px; height: 530px;  \" width=\"530\" height=\"530\">");
+           // Reporter.log("<img src=\"" + dest.getAbsoluteFile() + "\" style=\"display: block; opacity: 1; min-width: 0px; min-height: 0px; max-width: none; max-height: none; width: 530px; height: 530px;  \" width=\"530\" height=\"530\">");
 
 
 
         } catch (IOException e) {
-           Logger.Log(LOG_FILE, "Couldn't take the screenshot ",driver);
+            e.getMessage();
+           Logger.Log(LOG_FILE,e.getMessage(), "Couldn't take the screenshot ",driver,false);
 
         }
     }
