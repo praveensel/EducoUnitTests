@@ -5,6 +5,7 @@ import com.educo.tests.Helpers.Staticprovider;
 import com.educo.tests.PageOBjects.LoginPage.IndialoginPageObjects;
 import com.educo.tests.PageOBjects.LoginPage.UsaLoginPageObjects;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -38,12 +39,12 @@ public class Logintests {
 
         if (browser.equalsIgnoreCase("chrome")) {
             System.out.println("chrome");
-            System.setProperty("webdriver.chrome.driver", "D://Selnium//chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C://ChromeDriver//chromedriver.exe");
             capability = DesiredCapabilities.chrome();
             capability.setBrowserName("chrome");
             capability.setPlatform(org.openqa.selenium.Platform.ANY);
             //capability.setVersion("");
-            driver = new RemoteWebDriver(capability);
+            driver = new ChromeDriver();
 
         }
 
@@ -64,7 +65,7 @@ public class Logintests {
 
     @AfterTest
     public void afterclass() {
-        driver.quit();
+        driver.close();
 
     }
 
