@@ -37,7 +37,7 @@ public class SyllabusPageTests {
 
     @Parameters({"browser"})
     @BeforeMethod
-    public void setup(@Optional("firefox") String browser) throws MalformedURLException, InterruptedException {
+    public void setup(@Optional("chrome") String browser) throws MalformedURLException, InterruptedException {
         com.educo.tests.Common.Properties.Properties.setProperties();
         DesiredCapabilities capability = null;
 
