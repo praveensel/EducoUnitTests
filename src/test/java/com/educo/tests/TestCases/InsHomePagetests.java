@@ -52,8 +52,8 @@
 
     InsHomePageObjects insHomePageObjects = PageFactory.initElements(driver,  InsHomePageObjects.class);
 
-    // UsaLoginPageObjects LoginPagePageobj= PageFactory.initElements(driver, UsaLoginPageObjects.class);
-    UsaLoginPageObjects LoginPagePageobj=new UsaLoginPageObjects(driver);
+    UsaLoginPageObjects LoginPagePageobj= PageFactory.initElements(driver, UsaLoginPageObjects.class);
+
     LoginPagePageobj.openUsaPage();
     LoginPagePageobj.login(EmailInsUsa,Password);
     insHomePageObjects.SelectSection();
