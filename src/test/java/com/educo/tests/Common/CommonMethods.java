@@ -33,10 +33,12 @@ public class CommonMethods {
 
     public void Switchtodefaultcontetn() {
         driver.switchTo().defaultContent();
+        Logger.Log(LOG_FILE, "Switchtodefaultcontetn", "Switching to default content", driver, true);
     }
     public void waitforElementtoLoad(WebElement element)
     {
         wait.until(ExpectedConditions.visibilityOf(element));
+        Logger.Log(LOG_FILE,"waitforElementtoLoad","Waiting for " +element.getAttribute("name")+ " element to load",driver,true);
 
     }
     public void WaitforElementToLoadAndClick(WebElement element)
@@ -53,7 +55,7 @@ public class CommonMethods {
 
     }
 
-    public void Mousehover(WebElement element, WebDriver driver)
+    public void Mousehover(WebElement element)
     {
         Actions actions = new Actions(this.driver);
         WebElement menuHoverLink = element;

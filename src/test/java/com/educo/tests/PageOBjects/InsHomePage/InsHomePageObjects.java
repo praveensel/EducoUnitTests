@@ -46,7 +46,7 @@ public class InsHomePageObjects {
     public void waitforFrametoLoad(String Framename)
     {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Framename));
-        Logger.Log(LOG_FILE, "Switching to Frame" + Framename, driver);
+        Logger.Log(LOG_FILE,"waitforFrametoLoad", "Switching to Frame" + Framename, driver,true);
 
     }
 

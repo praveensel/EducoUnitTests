@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 
 import java.io.BufferedWriter;
@@ -16,8 +17,7 @@ import java.util.Date;
 
 public  class Logger {
 
-    private By lastFindBy;
-    private WebDriver driver;
+
 
     private  static long imageCounter;
     private  static String reportPath = "." + File.separator + "logs"
@@ -27,28 +27,73 @@ public  class Logger {
     private  static String screenPath = screenDirPath + "screenshot";
     private   String logFileName = "log.html";
     private   String logPath = reportPath + logFileName;
+    private static int countReport=0;
 
     public static   void Log(String LOG_FILE,String command, String description,WebDriver driver,boolean success) {
         try{
            // Reporter.setEscapeHtml(false);
+            countReport=countReport+1;
+            if(countReport==1)
+            {
+                ITestResult currentTestResult = Reporter.getCurrentTestResult();
+               // Reporter.log("</table>" +"<link href='D:\\GitHub Checkout\\EducoUnitTests\\test-output\\html\\reportng.css' >");
+              /*  Reporter.log("\"<tr>\\n\" +\n" +
+                        "                        \"<th>Method</th>\\n\" +\n" +
+                        "                        \"<th>Description</th>\\n\" +\n" +
+                        "                        \"<th>Screenshot</th>\\n\" +\n" +
+                        "                        \"</tr>\\n\")"); */
+         /*      Reporter.log("</table>" +
+                        "<style>\n" +
+                        "table, td, th\n" +
+                        "{\n" +
+                        "border:1px solid blue;\n" +
+                        "}\n" +
+                        "th\n" +
+                        "{\n" +
+                        "background-color:#2C74D3;\n" +
+                        "color:white;\n" +
+                        "}\n" +
+                        ".success{background-color: #44aa44;}"+
+                        ".error{background-color: red;}"+
+                      ".alternateItem\n" +
+                      "{\n" +
+                      "    background-color: #eef6f8;\n" +
+                      "    border-left-style: none;\n" +
+                      "    border-top-style: none;\n" +
+                      "    border-right-style: none;\n" +
+                      "    border-bottom: #DCDCDC 1px solid;\n" +
+                      "    font-family: 'Verdana';\n" +
+                      "    font-size: 11px;\n" +
+                      "    font-weight: Normal;\n" +
+                      "    color: #000066;\n" +
+                      "    height: 25px;\n" +
+                      "}" +
+                        "</style>\n" +
+                        "</head>\n" +
+                        "\n" +
+                        "<body>\n" +
+                        "<table>\n" +
+                        "<tr>\n" +
+                        "<th>Method</th>\n" +
+                        "<th>Description</th>\n" +
+                        "<th>Screenshot</th>\n" +
+                        "</tr>\n");   */
+
+            }
             FileWriter fstream;
             fstream = new FileWriter(LOG_FILE,true);
             BufferedWriter out_file = new BufferedWriter(fstream);
             Date timeStamp = new Date();
             //Reporter.log("<br><h3 style='color:red;font-size:14px;background-color:yellow;'>["+timeStamp+"] " + command + "</h3>");
-            String className = success ? "success" : "error";
+            String className = success ? "alternateItem" : "error";
             StringBuilder builder = new StringBuilder();
-            Reporter.log("<table border=\"1\">\n" +
-                    "  <tr>\n" +
-                    "    <th>Method name</th>\n" +
-                    "    <th>Desc</th>\n" +
-                    "    <th>Screenshot</th>\n" +
-                    "  </tr>");
+
             Reporter.log(
-                    "<tr class=\"" + className + "\">" +
+                    "<tr class=\"" +className +"\">" +
                     "<td>" + command  + "</td>" +
                     "<td>" + description + "</td>" +
-                    "<td> <br/><a href='D:\\GitHub Checkout\\EducoUnitTests\\logs\\screenshots\\screenshot"
+                    "<td> <br/>" +
+                    "<a href='D:\\GitHub Checkout\\EducoUnitTests\\logs\\screenshots\\screenshot"
                     + imageCounter + ".png'> Screenshot </a><br/> </td></tr>" );
             imageCounter += 1;
             screenShooter(LOG_FILE,driver,screenPath + imageCounter);

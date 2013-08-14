@@ -64,7 +64,7 @@
     waitforElementtoLoad(userInput);
     userInput.clear();
     userInput.sendKeys(username);
-    Logger.Log(LOG_FILE, "Inputting << " + username + " >> in the username field... ", driver);
+    Logger.Log(LOG_FILE,"typeInUserName", "Inputting << " + username + " >> in the username field... ", driver,true);
 
     }
     public void typeInPassword(String password){
@@ -74,13 +74,13 @@
     passwordInput.sendKeys(password);
     Logger objLog =new Logger();
 
-    objLog.Log(LOG_FILE, "Inputing << "+password+" >> in the password field... ",driver);
+    objLog.Log(LOG_FILE,"typeInPassword", "Inputing << "+password+" >> in the password field... ",driver,true);
     }
     public void clickLoginButton(){
 
     waitforElementtoLoad(loginButton);
     loginButton.click();
-    Logger.Log(LOG_FILE, "Clicking << LOGIN >> button... ",driver);
+    Logger.Log(LOG_FILE,"clickLoginButton", "Clicking << LOGIN >> button... ",driver,true);
 
     }
 
@@ -152,7 +152,7 @@
     public void waitforFrametoLoad(String Framename)
     {
     wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Framename));
-    Logger.Log(LOG_FILE, "Switching to Frome"+Framename,driver);
+    Logger.Log(LOG_FILE,"waitforFrametoLoad", "Switching to Frome"+Framename,driver,true);
 
     }
     //-------------------- USER ACTIONS -------------------

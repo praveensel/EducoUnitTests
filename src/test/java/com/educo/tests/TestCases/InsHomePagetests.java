@@ -21,7 +21,7 @@
     @BeforeClass
     public void setup(@Optional("firefox")String browser) throws MalformedURLException, InterruptedException {
     com.educo.tests.Common.Properties.Properties.setProperties();
-
+        System.setProperty("org.uncommons.reportng.stylesheet","C://Custommcss//report.css");
     DesiredCapabilities capability=null;
 
     if(browser.equalsIgnoreCase("chrome")){

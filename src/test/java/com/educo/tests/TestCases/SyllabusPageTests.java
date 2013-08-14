@@ -28,6 +28,7 @@ public class SyllabusPageTests {
     @BeforeClass
     public void propsetup(@Optional("Chrome") String browser) {
         com.educo.tests.Common.Properties.Properties.setProperties();
+        System.setProperty("org.uncommons.reportng.stylesheet","C://Custommcss//report.css");
     }
 
     @BeforeTest

@@ -1,16 +1,14 @@
 package com.educo.tests.PageOBjects.Tools;
 
+import com.educo.tests.Common.CommonMethods;
 import com.educo.tests.Helpers.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
-import java.util.List;
+import org.testng.Reporter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +17,7 @@ import java.util.List;
  * Time: 3:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SyllabusPageObjects {
+public class SyllabusPageObjects extends CommonMethods{
 
     public  WebDriver driver;
     protected int timeOut = 30;
@@ -184,6 +182,7 @@ public class SyllabusPageObjects {
 
 
     public SyllabusPageObjects(WebDriver driver) {
+        super(driver);
         this.driver = driver;
         wait = new WebDriverWait(this.driver,timeOut);
         driver.manage().window().maximize();
@@ -191,18 +190,30 @@ public class SyllabusPageObjects {
     /**
      Add Syllabus form Tools\Syllabus Page
      */
-     public void AddSyllabus()
+     public void AddSyllabus()  throws Exception
      {
 
-         waitforFrametoLoad("main");
-         btnAddSyllabus.click();
-         Assert.assertEquals(AddEditSy.getText(), "Add/Edit Syllabus");
-         SyllabusTitletxtbox.sendKeys("test1");
-         Authornaemtxtbox.sendKeys("test");
-         SyllDesctxtbox.sendKeys("desc");
-         Uploadbox.sendKeys("C:\\tmp\\file.txt");
-         Uploadbutton.click();
-         addsyllbusbtnOK.click();
+
+         try {
+             waitforFrametoLoad("main");
+             WaitforElementToLoadAndClick(btnAddSyllabus);
+             try {
+                 Assert.assertEquals(AddEditSy.getText(), "Add/Edit Syllbus");
+             } catch (AssertionError e) {
+
+                 Logger.Log(LOG_FILE,"Exception in method ",e.getMessage(),driver,false);
+             }
+             SyllabusTitletxtbox.sendKeys("test1");
+             Authornaemtxtbox.sendKeys("test");
+             SyllDesctxtbox.sendKeys("desc");
+             Uploadbox.sendKeys("C:\\tmp\\file.txt");
+             Uploadbutton.click();
+             addsyllbusbtnOK.click();
+         } catch (Exception e) {
+             e.getClass();
+             e.getLocalizedMessage();
+             Logger.Log(LOG_FILE,"Exception in method "+e.getMessage()+e.getStackTrace().getClass(),e.getLocalizedMessage(),driver,false);
+         }
 
      }
 
@@ -239,7 +250,7 @@ public class SyllabusPageObjects {
         boolean result=lblQuestcapt.getText().contains("Question Description");
         waitforFrametoLoad("RadEditor2_contentIframe");
         waitforElementtoLoad(MultpleChcQstnTxtBox);
-        sendtext(MultpleChcQstnTxtBox, "Q1");
+        sendtext(MultpleChcQstnTxtBox, "Q1rrrrrr");
         Switchtodefaultcontetn();
         waitforFrametoLoad("main");
         QstnOptionstab.click();
@@ -257,84 +268,6 @@ public class SyllabusPageObjects {
 
     }
 
-    private void Switchtodefaultcontetn() {
-        driver.switchTo().defaultContent();
-    }
 
-    public void waitforElementtoLoad(WebElement element)
-    {
-        wait.until(ExpectedConditions.visibilityOf(element));
-
-    }
-    //-------------------- SYNC ---------------------------
-    public void waitforFrametoLoad(String Framename)
-    {
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Framename));
-        Logger.Log(LOG_FILE, "Switchingg to Frame " + Framename, driver);
-
-    }
-
-    public void Mousehover(WebElement element)
-    {
-        Actions actions = new Actions(driver);
-        WebElement menuHoverLink = element;
-        actions.moveToElement(menuHoverLink);
-        actions.click();
-        actions.perform();
-
-    }
-
-    public void switchframeByElement(WebElement element)
-    {
-        driver.switchTo().frame(element) ;
-    }
-
-    public void ScriptExecutor(WebElement element)
-    {
-        String script = "document.getElementById(fileClientArticle).value='" + "C:\\\\tmp\\\\file.txt" + "';";
-
-        ((JavascriptExecutor)driver).executeScript(script);
-    }
-
-    public void VerifyTextPresent(String exp,String act)
-    {
-        if (!exp.contains(act)) {
-            System.out.println("verifyTextPresent failed");
-            System.out.println("Expected is" + exp  +"Actual is"+act);
-
-        }
-
-
-    }
-
-
-
-    public void sendtext(WebElement element,String text)
-    {
-          element.clear();
-          element.sendKeys(text);
-    }
-
-    public void FramesetSwitch(String Framename1)
-    {
-        List<WebElement> frameset = driver.findElements(By.tagName("frame"));
-        if(frameset.size()>0)
-            for (WebElement framename : frameset)
-
-        {
-            String f = framename.getAttribute("id");
-            System.out.println("frameid: " + f);
-            //driver.switchTo().frame(f);
-            if (f.equals(Framename1)) {
-                WebElement t=driver.findElement(By.id(f));
-                driver.switchTo().frame(t) ;
-                System.out.println("Switching to frame " + f);
-                break;
-            }
-
-
-        }
-
-}
 
 }
