@@ -5,12 +5,14 @@
     import com.educo.tests.PageOBjects.InsHomePage.InsHomePageObjects;
     import com.educo.tests.PageOBjects.LoginPage.UsaLoginPageObjects;
     import org.openqa.selenium.WebDriver;
+    import org.openqa.selenium.WebElement;
     import org.openqa.selenium.firefox.FirefoxDriver;
     import org.openqa.selenium.remote.DesiredCapabilities;
     import org.openqa.selenium.support.PageFactory;
     import org.testng.annotations.*;
 
     import java.net.MalformedURLException;
+    import java.util.List;
 
 
     public class InsHomePagetests {
@@ -25,8 +27,8 @@
     DesiredCapabilities capability=null;
 
     if(browser.equalsIgnoreCase("chrome")){
-    System.out.println("chromex");
-    System.setProperty("webdriver.chrome.driver","D://selnium//chromedriver.exe");
+    System.out.println("chrome");
+        System.setProperty("webdriver.chrome.driver", "C://ChromeDriver//chromedriver.exe");
     capability= DesiredCapabilities.chrome();
     capability.setBrowserName("chrome");
     capability.setPlatform(org.openqa.selenium.Platform.ANY);
@@ -34,13 +36,13 @@
     }
 
     if(browser.equalsIgnoreCase("Firefox")){
-    System.out.println("iexplore");
+    System.out.println("Firefox");
     capability= DesiredCapabilities.firefox();
     capability.setBrowserName("firefox");
     capability.setPlatform(org.openqa.selenium.Platform.WINDOWS);
     driver=new FirefoxDriver();
     }
-    System.setProperty("webdriver.chrome.driver","D://selnium//chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C://ChromeDriver//chromedriver.exe");
     //driver = new RemoteWebDriver(new URL("http://192.168.100.85:5555/wd/hub"), capability);
 
 
@@ -50,14 +52,16 @@
     public void Sectiontest(String EmailInsUsa,String Password,String Profname )
     {
 
-    InsHomePageObjects insHomePageObjects = PageFactory.initElements(driver,  InsHomePageObjects.class);
+    InsHomePageObjects insHomePageObjectsI = PageFactory.initElements(driver,  InsHomePageObjects.class);
 
-    UsaLoginPageObjects LoginPagePageobj= PageFactory.initElements(driver, UsaLoginPageObjects.class);
+    UsaLoginPageObjects LoginPagePageobjI = PageFactory.initElements(driver, UsaLoginPageObjects.class);
 
-    LoginPagePageobj.openUsaPage();
-    LoginPagePageobj.login(EmailInsUsa,Password);
-    insHomePageObjects.SelectSection();
-    LoginPagePageobj.logout();
+    LoginPagePageobjI.openUsaPage();
+    LoginPagePageobjI.login(EmailInsUsa,Password);
+    List<WebElement> list =insHomePageObjectsI.giveMeAList();
+    insHomePageObjectsI.SelectSection(list.get(0));
+
+    LoginPagePageobjI.logout();
     }
 
 

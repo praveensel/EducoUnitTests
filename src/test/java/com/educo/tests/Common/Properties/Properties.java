@@ -23,9 +23,9 @@ public class Properties {
 	public static String profname;
 	public static String password4;
 
-	public static String userNameNonLatin;
-	public static String userNameNonLatinEncoded;
-	public static String passwordNonLatin;
+	public static String userNameJohn;
+	public static String profnamejohn;
+	public static String passwordJohn;
 
 	public static String userNameWithUnderScore;
 	public static String passwordWithUnderScore;
@@ -83,9 +83,9 @@ public class Properties {
 
 		password4 = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "ci.user.regular4.password");
 
-		userNameNonLatin = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "ci.user.nonLatin.username");
-		userNameNonLatinEncoded = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "ci.user.nonLatin.usernameenc");
-		passwordNonLatin = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "ci.user.nonLatin.password");
+		userNameJohn = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "USA.Instructor1");
+        profnamejohn = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "USA.BannerName1");
+		passwordJohn = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "USA.Password1");
 
 		userNameWithUnderScore = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "ci.user.underscore.username");
 		passwordWithUnderScore = XMLFunctions.getXMLConfiguration(Global.CONFIG_FILE, "ci.user.underscore.password");

@@ -4,7 +4,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 
-    <suite name ="EducoTest"  parallel="tests"    >
+    <suite name ="EducoTest"  parallel="methods"    >
 
     <listeners>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
@@ -18,9 +18,15 @@
     <test name="FF Test in Windows 7 Sytem" >
 
         <classes>
-        <class name="com.educo.tests.TestCases.SyllabusPageTests"/>
-            <class name="com.educo.tests.TestCases.InsHomePagetests"/>
-            <class name="com.educo.tests.TestCases.Logintests"/>
+
+
+            <class name="com.educo.tests.TestCases.Logintests"><methods>
+                <exclude name="Login_As_Instructor_USA"/>
+                    <exclude name="InvalidLoginPromptTest"/>
+
+            </methods></class>
+            
+            
         </classes>
     </test>
 

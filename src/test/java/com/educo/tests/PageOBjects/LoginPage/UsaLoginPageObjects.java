@@ -49,7 +49,7 @@
     public  UsaLoginPageObjects(WebDriver adriver) {
      driver=adriver;
      wait = new WebDriverWait(driver, timeOut);
-    // PageFactory.initElements(driver, this);
+
     driver.manage().window().maximize();
     }
     //-------------------- CONSTRUCTOR --------------------

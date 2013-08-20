@@ -4,6 +4,7 @@ package com.educo.tests.TestCases;
 import com.educo.tests.Helpers.Staticprovider;
 import com.educo.tests.PageOBjects.LoginPage.IndialoginPageObjects;
 import com.educo.tests.PageOBjects.LoginPage.UsaLoginPageObjects;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,13 +13,15 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 
 public class Logintests {
 
 
-    public WebDriver driver;
+    public  WebDriver driver;
 
     @Parameters({"browser"})
     @BeforeClass
@@ -29,9 +32,15 @@ public class Logintests {
 
     @BeforeTest
     public void b4test() {
-        System.out.println("@BeforeTest");
-    }
 
+        System.out.println("@BeforeTest");
+       // FileUtils.deleteDirectory(new File());
+    }
+    @BeforeSuite
+    public void BeforeSuite() throws IOException {
+       System.out.println("@BeforeSuite");
+       FileUtils.deleteDirectory(new File(".\\logs\\screenshots\\"));
+    }
     @Parameters({"browser"})
     @BeforeMethod
     public void setup(@Optional("chrome") String browser) throws MalformedURLException, InterruptedException {
@@ -64,8 +73,9 @@ public class Logintests {
 
     }
 
-    @AfterTest
-    public void afterclass() {
+    @AfterSuite
+    protected void afterclass() {
+
         driver.close();
 
     }
@@ -79,6 +89,7 @@ public class Logintests {
         //Thread.sleep(1000);
         usapage.loginAndVerifyUSA(EmailInsUsa, Password, Profname);
         usapage.logout();
+
 
     }
 
@@ -96,6 +107,7 @@ public class Logintests {
 
         UsaLoginPageObjects usapage1 = PageFactory.initElements(driver, UsaLoginPageObjects.class);
         usapage1.invalidlogin("ed@test.com", "Password");
+
 
 
     }

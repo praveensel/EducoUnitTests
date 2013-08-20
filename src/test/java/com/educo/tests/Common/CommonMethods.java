@@ -38,7 +38,7 @@ public class CommonMethods {
     public void waitforElementtoLoad(WebElement element)
     {
         wait.until(ExpectedConditions.visibilityOf(element));
-        Logger.Log(LOG_FILE,"waitforElementtoLoad","Waiting for " +element.getAttribute("name")+ " element to load",driver,true);
+        Logger.Log(LOG_FILE,"waitforElementtoLoad","Waiting for " +element.getAttribute("id")+ " element to load",driver,true);
 
     }
     public void WaitforElementToLoadAndClick(WebElement element)
@@ -87,11 +87,18 @@ public class CommonMethods {
 
 
     }
+    //----------------Click a button or a Link--------------------------
+    public void ClickButtonOrLink(WebElement element)
+    {
+        waitforElementtoLoad(element);
+        element.click();
+    }
 
 
-
+    //----------------Send text to a textbox--------------------------
     public void sendtext(WebElement element,String text)
     {
+        waitforElementtoLoad(element);
         element.clear();
         element.sendKeys(text);
     }
@@ -116,5 +123,10 @@ public class CommonMethods {
 
             }
 
+    }
+    //----------------Open a WebPage--------------------------
+    public void OpenWebPage(String URL)
+    {
+        driver.get(URL);
     }
 }

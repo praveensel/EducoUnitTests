@@ -20,6 +20,18 @@ public  class Staticprovider {
         };
 
     }
+    @DataProvider(name="UsaLogin1")
+    public static final Object[][] UsaLoginProvider1()
+    {
+        String[] Email = new String[]{Properties.userNameJohn};
+        String[] Pwd= new String[]{Properties.passwordJohn};
+        String[] proname= new String[]{Properties.profnamejohn} ;
+        Object[][] values = new Object[][]{
+                { Email[0],Pwd[0],proname[0]  }
+
+        };
+        return values  ;
+    }
 
     @DataProvider(name="UsaLogin")
     public static final Object[][] UsaLoginProvider()
@@ -40,6 +52,8 @@ public  class Staticprovider {
         return new Object[][]{
                 {Properties.usernameIndiains,Properties.passwordInd}
     };
+
+
 
 }
 

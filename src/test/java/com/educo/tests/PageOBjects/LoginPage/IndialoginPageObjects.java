@@ -1,158 +1,124 @@
-    package com.educo.tests.PageOBjects.LoginPage;
+package com.educo.tests.PageOBjects.LoginPage;
 
 
-    import com.educo.tests.Helpers.Credentials;
-    import com.educo.tests.Helpers.Logger;
-    import org.openqa.selenium.WebDriver;
-    import org.openqa.selenium.WebElement;
-    import org.openqa.selenium.support.FindBy;
-    import org.openqa.selenium.support.How;
-    import org.openqa.selenium.support.ui.ExpectedConditions;
-    import org.openqa.selenium.support.ui.WebDriverWait;
+import com.educo.tests.Common.CommonMethods;
+import com.educo.tests.Helpers.Credentials;
+import com.educo.tests.Helpers.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-    public class IndialoginPageObjects  {
-
-
+public class IndialoginPageObjects extends CommonMethods {
 
 
     //-------------------- ELEMENTS -----------------------
     @FindBy(how = How.NAME, using = "ctl00$escontent$txtUserName")
-    public    WebElement userInput;
-
-    @FindBy(how = How.NAME, using = "ctl00$escontent$txtPassword")
-    public    WebElement passwordInput;
-
-    @FindBy(how = How.ID_OR_NAME, using = "LnkForgotPassword")
-    public    WebElement resetPasswordLink;
-
-    @FindBy(how = How.NAME, using = "ctl00$escontent$btnGo")
-    public    WebElement loginButton;
-
-    @FindBy(how = How.ID_OR_NAME, using = "ECFMenu1-menuItem012")
-    public    WebElement logoutlink;
-
-    @FindBy(how = How.ID, using = "ECFBanner1_lblUName")
-    public    WebElement Bannername;
-
-
-
-
-
-
-    public  WebDriver driver;
+    @CacheLookup
+    public WebElement userInput;
+    @FindBy(how = How.NAME, using = "ctl00$escontent$txtPassword")@CacheLookup
+    public WebElement passwordInput;
+    @FindBy(how = How.ID_OR_NAME, using = "LnkForgotPassword") @CacheLookup
+    public WebElement resetPasswordLink;
+    @FindBy(how = How.NAME, using = "ctl00$escontent$btnGo")  @CacheLookup
+    public WebElement loginButton;
+    @FindBy(how = How.ID_OR_NAME, using = "ECFMenu1-menuItem012") @CacheLookup
+    public WebElement logoutlink;
+    @FindBy(how = How.ID, using = "ECFBanner1_lblUName")  @CacheLookup
+    public WebElement Bannername;
+    public WebDriver driver;
+    public WebDriverWait wait;
+    public String LOG_FILE = "src\\Test\\REPORT.log";
     protected int timeOut = 30;
-    public   WebDriverWait wait;
-    public   String LOG_FILE = "src\\Test\\REPORT.log";
     //-------------------- ELEMENTS -----------------------
 
     //-------------------- CONSTRUCTOR --------------------
     public IndialoginPageObjects(WebDriver adriver) {
+        super(adriver);
 
-    driver=adriver;
-    wait = new WebDriverWait(driver, timeOut);
-    //PageFactory.initElements(driver,this);
-    driver.manage().window().maximize();
+        driver = adriver;
+        wait = new WebDriverWait(driver, timeOut);
+        driver.manage().window().maximize();
 
     }
     //-------------------- CONSTRUCTOR --------------------
 
-
     //-------------------- USER ACTIONS -------------------
-    public void typeInUserName(String username){
+    public void typeInUserName(String username) {
 
-    waitforElementtoLoad(userInput);
-    userInput.clear();
-    userInput.sendKeys(username);
-    Logger.Log(LOG_FILE,"typeInUserName", "Inputting << " + username + " >> in the username field... ", driver,true);
-
-    }
-    public void typeInPassword(String password){
-
-    waitforElementtoLoad(passwordInput);
-    passwordInput.clear();
-    passwordInput.sendKeys(password);
-    Logger objLog =new Logger();
-
-    objLog.Log(LOG_FILE,"typeInPassword", "Inputing << "+password+" >> in the password field... ",driver,true);
-    }
-    public void clickLoginButton(){
-
-    waitforElementtoLoad(loginButton);
-    loginButton.click();
-    Logger.Log(LOG_FILE,"clickLoginButton", "Clicking << LOGIN >> button... ",driver,true);
+       sendtext(userInput,username);
+       Logger.Log(LOG_FILE, "typeInUserName", "Inputting << " + username + " >> in the username field... ", driver, true);
 
     }
 
-    public void openUsaPage()
-    {
-    driver.get(Credentials.USA_URL);
+    public void typeInPassword(String password) {
 
+      sendtext(passwordInput,password);
+      Logger.Log(LOG_FILE, "typeInPassword", "Inputting << " + password + " >> in the password field... ", driver, true);
     }
-    public static class djd{
+
+    public void clickLoginButton() {
+
+        WaitforElementToLoadAndClick(loginButton);
+        Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton+" button... ", driver, true);
 
     }
 
 
     //Login method for logging into both usa and india portal
-    public void login(String name, String pass){
+    public void login(String name, String pass) {
 
-    typeInUserName(name);
-    typeInPassword(pass);
-    clickLoginButton();
+        typeInUserName(name);
+        typeInPassword(pass);
+        clickLoginButton();
 
     }
 
-
-
-
-
-    public void logout()
-    {
-    String CurretnUrl = driver.getCurrentUrl();
-    if(CurretnUrl.equals("https://www.educosoft.com/Common/ECFIndex.aspx"))
-    driver.switchTo().defaultContent();
-    waitforElementtoLoad(logoutlink);
-    logoutlink.click();
+    public void logout() {
+        String CurrentUrl = driver.getCurrentUrl();
+        if (CurrentUrl.equals("https://www.educosoft.com/Common/ECFIndex.aspx"))
+        {
+        Switchtodefaultcontetn();
+        WaitforElementToLoadAndClick(logoutlink);
+        Logger.Log(LOG_FILE,"logout","Verify URL and Log out",driver,true);  }
     }
 
 
     // Logs in and verify the Instructor name matches with email for USA portal
 
-
     // Logs in and verify the Instructor name matches with email for India portal
-    public void loginAndVerifyIndia(String EmailUsaIns, String pass,String Name){
-    openIndiaPage();
-    login(EmailUsaIns, pass);
-    verifyUserLoggedIn(Name);
+    public void loginAndVerifyIndia(String EmailUsaIns, String pass, String Name) {
+
+        openIndiaPage();
+        login(EmailUsaIns, pass);
+        verifyUserLoggedIn(Name);
     }
 
     private void openIndiaPage() {
-    driver.get(Credentials.India_URL);
+
+        OpenWebPage(Credentials.India_URL);
+        Logger.Log(LOG_FILE,"openIndiaPage","Opening URL"+Credentials.India_URL,driver,true);
     }
 
-    public void verifyUserLoggedIn(String name)
-    {
-    driver.switchTo().defaultContent();
-    waitforElementtoLoad(Bannername);
-    String Proffessorname=Bannername.getText();
-    if (Proffessorname.equals(name))
-    {
-    //      Logger.Log(LOG_FILE,"Name matches",driver);
-    System.out.println("Name matches"+name+Proffessorname);
-    }
+    public void verifyUserLoggedIn(String name) {
+        driver.switchTo().defaultContent();
+        waitforElementtoLoad(Bannername);
+        String Proffessorname = Bannername.getText();
+        if (Proffessorname.equals(name)) {
+            Logger.Log(LOG_FILE,"verifyUserLoggedIn","Checks Logged in User name Matches"+ name + Proffessorname,driver,true);
+            System.out.println("Name matches" + name + Proffessorname);
+        }
 
     }
-    public void waitforElementtoLoad(WebElement element)
-    {
-    wait.until(ExpectedConditions.visibilityOf(element));
 
-    }
+
+
     //-------------------- SYNC ---------------------------
-    public void waitforFrametoLoad(String Framename)
-    {
-    wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Framename));
-    Logger.Log(LOG_FILE,"waitforFrametoLoad", "Switching to Frome"+Framename,driver,true);
+
 
     }
     //-------------------- USER ACTIONS -------------------
@@ -161,6 +127,5 @@
 
 
 
-    }
 
 

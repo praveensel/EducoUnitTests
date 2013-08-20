@@ -181,10 +181,11 @@ public class SyllabusPageObjects extends CommonMethods{
 
 
 
-    public SyllabusPageObjects(WebDriver driver) {
-        super(driver);
-        this.driver = driver;
-        wait = new WebDriverWait(this.driver,timeOut);
+    public SyllabusPageObjects(WebDriver adriver) {
+        super(adriver);
+        driver=adriver;
+        wait = new WebDriverWait(driver, timeOut);
+
         driver.manage().window().maximize();
     }
     /**

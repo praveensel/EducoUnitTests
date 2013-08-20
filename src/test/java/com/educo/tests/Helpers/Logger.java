@@ -31,63 +31,16 @@ public  class Logger {
 
     public static   void Log(String LOG_FILE,String command, String description,WebDriver driver,boolean success) {
         try{
-           // Reporter.setEscapeHtml(false);
-            countReport=countReport+1;
-            if(countReport==1)
-            {
-                ITestResult currentTestResult = Reporter.getCurrentTestResult();
-               // Reporter.log("</table>" +"<link href='D:\\GitHub Checkout\\EducoUnitTests\\test-output\\html\\reportng.css' >");
-              /*  Reporter.log("\"<tr>\\n\" +\n" +
-                        "                        \"<th>Method</th>\\n\" +\n" +
-                        "                        \"<th>Description</th>\\n\" +\n" +
-                        "                        \"<th>Screenshot</th>\\n\" +\n" +
-                        "                        \"</tr>\\n\")"); */
-         /*      Reporter.log("</table>" +
-                        "<style>\n" +
-                        "table, td, th\n" +
-                        "{\n" +
-                        "border:1px solid blue;\n" +
-                        "}\n" +
-                        "th\n" +
-                        "{\n" +
-                        "background-color:#2C74D3;\n" +
-                        "color:white;\n" +
-                        "}\n" +
-                        ".success{background-color: #44aa44;}"+
-                        ".error{background-color: red;}"+
-                      ".alternateItem\n" +
-                      "{\n" +
-                      "    background-color: #eef6f8;\n" +
-                      "    border-left-style: none;\n" +
-                      "    border-top-style: none;\n" +
-                      "    border-right-style: none;\n" +
-                      "    border-bottom: #DCDCDC 1px solid;\n" +
-                      "    font-family: 'Verdana';\n" +
-                      "    font-size: 11px;\n" +
-                      "    font-weight: Normal;\n" +
-                      "    color: #000066;\n" +
-                      "    height: 25px;\n" +
-                      "}" +
-                        "</style>\n" +
-                        "</head>\n" +
-                        "\n" +
-                        "<body>\n" +
-                        "<table>\n" +
-                        "<tr>\n" +
-                        "<th>Method</th>\n" +
-                        "<th>Description</th>\n" +
-                        "<th>Screenshot</th>\n" +
-                        "</tr>\n");   */
 
-            }
             FileWriter fstream;
             fstream = new FileWriter(LOG_FILE,true);
             BufferedWriter out_file = new BufferedWriter(fstream);
             Date timeStamp = new Date();
-            //Reporter.log("<br><h3 style='color:red;font-size:14px;background-color:yellow;'>["+timeStamp+"] " + command + "</h3>");
+
             String className = success ? "alternateItem" : "error";
             StringBuilder builder = new StringBuilder();
-
+            imageCounter += 1;
+            screenShooter(LOG_FILE,driver,screenPath + imageCounter);
             Reporter.log(
                     "<tr class=\"" +className +"\">" +
                     "<td>" + command  + "</td>" +
@@ -95,8 +48,7 @@ public  class Logger {
                     "<td> <br/>" +
                     "<a href='D:\\GitHub Checkout\\EducoUnitTests\\logs\\screenshots\\screenshot"
                     + imageCounter + ".png'> Screenshot </a><br/> </td></tr>" );
-            imageCounter += 1;
-            screenShooter(LOG_FILE,driver,screenPath + imageCounter);
+
             out_file.write("["+timeStamp+"] " + command);
             System.out.println("["+timeStamp+"] " + command);
             out_file.newLine();
@@ -120,6 +72,7 @@ public  class Logger {
             if (!Outputfilepath.endsWith(".png")) {
                 Outputfilepath = Outputfilepath + ".png";
             }
+
             File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             dest = new File(Outputfilepath);
             FileUtils.copyFile(scrFile,dest);
