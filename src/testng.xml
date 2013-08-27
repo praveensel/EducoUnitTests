@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+
+    <suite name ="EducoTest"  parallel="methods"    >
+
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+
+    </listeners>
+
+
+
+    <test name="FF Test in Windows 7 Sytem" >
+
+        <classes>
+
+
+            <class name="com.educo.tests.TestCases.InsHomePagetests"><methods>
+
+
+            </methods></class>
+            
+            
+        </classes>
+    </test>
+
+
+</suite>
