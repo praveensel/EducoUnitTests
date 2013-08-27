@@ -12,8 +12,7 @@
             <include name="*.jar"/>
         </fileset>
         <pathelement path="bin"/>
-
-    </path>
+     </path>
     <path id="classes">
         <fileset dir="bin">
             <include name="**/*.class"/>
@@ -22,12 +21,11 @@
     </path>
 
     <target name="run">
-        <antcall target="startSeleniumServer"/>
+
         <antcall target="init"/>
         <antcall target="compile"/>
         <antcall target="runTests"/>
-        <antcall target="stopSeleniumServer"/>
-        <antcall target="openReport"/>
+
     </target>
 
     <!-- Start the server -->
@@ -36,8 +34,7 @@
         <java jar="lib\selenium-server-1.0.2.jar" fork="true" spawn="true">
             <arg line="-singlewindow -log ${logs.dir}\selenium_server_log.txt"/>
         </java>
-
-    </target>
+     </target>
 
     <target name="stopSeleniumServer">
         <echo> Trying to stop selenium server ... </echo>
@@ -71,21 +68,10 @@
                 useDefaultListeners="false"
                 listeners="org.uncommons.reportng.HTMLReporter"
                 classpathref="libs">
-
                 <xmlfileset dir="src" includes="testng.xml" />
         </testng>
     </target>
-    <target name="runTestNG">
-        <taskdef resource="testngtasks" classpathref="libs"/>
-        <testng outputDir="${report.dir}"
-                haltonfailure="true"
-                useDefaultListeners="false"
-                listeners="org.uncommons.reportng.HTMLReporter"
-                >
-            <xmlfileset dir="." includes="testng.xml"/>
-        </testng>
 
-    </target>
 
     <!-- Open the report in browser.-->
     <target name="openReport">
@@ -94,11 +80,5 @@
         </exec>
     </target>
 
-    <target name="runTestNG1">
-        <testng outputdir="${report.dir}" classpathref="libs">
-            <xmlfileset dir="." includes="testng.xml"/>
-        </testng>
-
-    </target>
 
 </project>
