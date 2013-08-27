@@ -20,10 +20,9 @@
         <classes>
 
 
-            <class name="com.educo.tests.TestCases.InsHomePagetests"><methods>
-
-
-            </methods></class>
+            <class name="com.educo.tests.TestCases.InsHomePagetests"></class>
+            <class name="com.educo.tests.TestCases.Logintests"/>
+            <class name="com.educo.tests.TestCases.SyllabusPageTests"/>
             
             
         </classes>
