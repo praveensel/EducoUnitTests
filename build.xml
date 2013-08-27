@@ -46,6 +46,7 @@
     <!-- Delete old data and create new directories -->
     <target name="init" >
         <echo>Initlizing...</echo>
+        <delete dir="${classes.dir}"/>
         <delete dir="${classes.dir}" />
         <mkdir dir="${classes.dir}"/>
         <delete dir="${report.dir}" />
