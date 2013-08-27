@@ -25,6 +25,7 @@
         <antcall target="init"/>
         <antcall target="compile"/>
         <antcall target="runTests"/>
+        <antcall target="openReport"/>
 
     </target>
 
