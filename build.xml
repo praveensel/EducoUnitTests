@@ -1,0 +1,104 @@
+<project name="ANT_with_ReportNG" default="run" basedir=".">
+
+    <property name="classes.dir" value="bin"/>
+    <property name="TestCase.dir" value="D:\\GitHubCheckout\\EducoUnitTests\\target\\test-classes\\com\\educo\\tests\\TestCases"/>
+    <property name="src.dir" value="src" />
+    <property name="report.dir" value="test-output" />
+    <property name="logs.dir" value="logs" />
+    <property name="browser" value="C:/Program Files/Mozilla Firefox/firefox.exe"/>
+
+    <path id="libs">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="bin"/>
+
+    </path>
+    <path id="classes">
+        <fileset dir="bin">
+            <include name="**/*.class"/>
+        </fileset>
+
+    </path>
+
+    <target name="run">
+        <antcall target="startSeleniumServer"/>
+        <antcall target="init"/>
+        <antcall target="compile"/>
+        <antcall target="runTests"/>
+        <antcall target="stopSeleniumServer"/>
+        <antcall target="openReport"/>
+    </target>
+
+    <!-- Start the server -->
+    <target name="startSeleniumServer">
+        <echo>Starting Selenium Server...</echo>
+        <java jar="lib\selenium-server-1.0.2.jar" fork="true" spawn="true">
+            <arg line="-singlewindow -log ${logs.dir}\selenium_server_log.txt"/>
+        </java>
+
+    </target>
+
+    <target name="stopSeleniumServer">
+        <echo> Trying to stop selenium server ... </echo>
+        <get taskname="selenium-shutdown" src="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer"
+             dest="${logs.dir}\selenium_server_shutdown_result.txt" ignoreerrors="true" />
+        <echo taskname="selenium-shutdown" message="DGF Errors during shutdown are expected" />
+    </target>
+
+    <!-- Delete old data and create new directories -->
+    <target name="init" >
+        <echo>Initlizing...</echo>
+        <delete dir="${classes.dir}" />
+        <mkdir dir="${classes.dir}"/>
+        <delete dir="${report.dir}" />
+        <mkdir dir="${report.dir}"/>
+        <mkdir dir="${logs.dir}"/>
+    </target>
+
+    <!-- Complies the java files -->
+    <target name="compile">
+        <echo>Compiling...</echo>
+        <javac includeantruntime="false" debug="true" srcdir="${src.dir}" destdir="${classes.dir}"   classpathref="libs" />
+    </target>
+
+    <!-- Runs the file and generates Reportng report -->
+    <target name="runTests" description="Running tests" >
+        <echo>Running Tests...</echo>
+        <taskdef resource="testngtasks" classpathref="libs"/>
+        <testng outputDir="${report.dir}"
+                haltonfailure="true"
+                useDefaultListeners="false"
+                listeners="org.uncommons.reportng.HTMLReporter"
+                classpathref="libs">
+
+                <xmlfileset dir="src" includes="testng.xml" />
+        </testng>
+    </target>
+    <target name="runTestNG">
+        <taskdef resource="testngtasks" classpathref="libs"/>
+        <testng outputDir="${report.dir}"
+                haltonfailure="true"
+                useDefaultListeners="false"
+                listeners="org.uncommons.reportng.HTMLReporter"
+                >
+            <xmlfileset dir="." includes="testng.xml"/>
+        </testng>
+
+    </target>
+
+    <!-- Open the report in browser.-->
+    <target name="openReport">
+        <exec executable="${browser}" spawn="yes">
+            <arg line="'${report.dir}\html\index.html'" />
+        </exec>
+    </target>
+
+    <target name="runTestNG1">
+        <testng outputdir="${report.dir}" classpathref="libs">
+            <xmlfileset dir="." includes="testng.xml"/>
+        </testng>
+
+    </target>
+
+</project>
