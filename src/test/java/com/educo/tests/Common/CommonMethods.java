@@ -1,10 +1,8 @@
 package com.educo.tests.Common;
 
 import com.educo.tests.Helpers.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,7 +25,7 @@ public class CommonMethods {
 
     public CommonMethods(WebDriver driver)
     {
-         this.driver=driver;
+        this.driver=driver;
         wait = new WebDriverWait(this.driver,timeOut);
     }
 
@@ -45,7 +43,8 @@ public class CommonMethods {
     {
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
-        Logger.Log(LOG_FILE, "WaitforElementToLoadAndClick", "Clicked on element " + element, driver, true);
+
+
     }
     //-------------------- SYNC ---------------------------
     public  void waitforFrametoLoad(String Framename)
@@ -65,10 +64,27 @@ public class CommonMethods {
 
     }
 
-    public void switchframeByElement(WebElement element)
+    public void clickatPosistion()
     {
-        driver.switchTo().frame(element) ;
+        Actions builder = new Actions(this.driver);
+       Action Movetoxy=builder.moveByOffset(161, 410)
+
+               .build();
+
+      Movetoxy.perform();
+
+        ;
     }
+
+    public void getELocation(WebElement element)
+    {
+       Point loc= element.getLocation();
+      Dimension Size=  element.getSize();
+        System.out.println(loc);
+        System.out.println(Size);
+
+    }
+
 
     public void ScriptExecutor(WebElement element)
     {

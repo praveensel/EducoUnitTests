@@ -1,6 +1,7 @@
     package com.educo.tests.PageOBjects.LoginPage;
 
 
+    import com.educo.tests.Common.CommonMethods;
     import com.educo.tests.Helpers.Credentials;
     import com.educo.tests.Helpers.Logger;
     import org.openqa.selenium.WebDriver;
@@ -12,7 +13,7 @@
     import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-    public class UsaLoginPageObjects  {
+    public class UsaLoginPageObjects extends CommonMethods {
 
 
 
@@ -47,10 +48,10 @@
 
     //-------------------- CONSTRUCTOR --------------------
     public  UsaLoginPageObjects(WebDriver adriver) {
+     super(adriver);
      driver=adriver;
      wait = new WebDriverWait(driver, timeOut);
-
-    driver.manage().window().maximize();
+     driver.manage().window().maximize();
     }
     //-------------------- CONSTRUCTOR --------------------
 
@@ -59,30 +60,25 @@
     public void typeInUserName(String username){
 
 
-    waitforElementtoLoad(userInput);
-    userInput.clear();
-    userInput.sendKeys(username);
-    Logger.Log(LOG_FILE,"typeInUserName", "Inputting << " + username + " >> in the username field... ", driver,true);
-    // return driver;
+     sendtext(userInput,username);
+     Logger.Log(LOG_FILE, "typeInUserName", "Inputting << " + username + " >> in the username field... "+userInput.getAttribute("name"), driver, true);
+
     }
     public void typeInPassword(String password){
 
-    waitforElementtoLoad(passwordInput);
-    passwordInput.clear();
-    passwordInput.sendKeys(password);
-    //   Logger.Log(LOG_FILE, "Inputting << "+password+" >> in the password field... ",driver);
+        sendtext(passwordInput,password);
+        Logger.Log(LOG_FILE, "typeInPassword", "Inputting << " + password + " >> in the password field... "+passwordInput.getAttribute("name"), driver, true);
     }
     public void clickLoginButton(){
 
-    waitforElementtoLoad(loginButton);
-    loginButton.click();
-    Logger.Log(LOG_FILE,"clickLoginButton", "Clicking << LOGIN >> button... ",driver,true);
-
+        WaitforElementToLoadAndClick(loginButton);
+        Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton.getAttribute("name")+" button... ", driver, true);
     }
 
     public  void openUsaPage()
     {
-    driver.get(Credentials.USA_URL);
+        OpenWebPage(Credentials.USA_URL);
+        Logger.Log(LOG_FILE,"openIndiaPage","Opening URL "+Credentials.USA_URL,driver,true);
 
     }
 
@@ -103,11 +99,12 @@
 
     public  void logout()
     {
-    String CurretnUrl = driver.getCurrentUrl();
-    if(CurretnUrl.equals("https://www.educosoft.com/Common/ECFIndex.aspx"))
-       driver.switchTo().defaultContent();
-    waitforElementtoLoad(logoutlink);
-    logoutlink.click();
+        String CurrentUrl = driver.getCurrentUrl();
+        if (CurrentUrl.equals("https://www.educosoft.com/Common/ECFIndex.aspx"))
+        {
+            Switchtodefaultcontetn();
+            WaitforElementToLoadAndClick(logoutlink);
+            Logger.Log(LOG_FILE,"logout","Verify URL and Log out",driver,true);  }
     }
 
 
@@ -128,7 +125,7 @@
 
     public  void verifyUserLoggedIn(String name)
     {
-    driver.switchTo().defaultContent();
+         Switchtodefaultcontetn();
          waitforElementtoLoad(Bannername);
          String Proffessorname=Bannername.getText();
          if (Proffessorname.equals(name))
@@ -139,18 +136,9 @@
         }
 
     }
-    public  void waitforElementtoLoad(WebElement element)
-    {
-    wait.until(ExpectedConditions.visibilityOf(element));
 
-    }
     //-------------------- SYNC ---------------------------
-    public  void waitforFrametoLoad(String Framename)
-    {
-    wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Framename));
-    Logger.Log(LOG_FILE,"waitforFrametoLoad", "Switching to Frome"+Framename,driver,true);
 
-    }
     //-------------------- USER ACTIONS -------------------
 
     //-------------------- SYNC ---------------------------
@@ -162,11 +150,12 @@
        login(name,pass);
        waitforElementtoLoad(ErrorLabel);
        String ExpectedErrromesage="Invalid user credentials...!!! Please check your Username and Password.";
-       String ActualErrormsg=ErrorLabel.getText();
-       if(ActualErrormsg.equals(ExpectedErrromesage))
+       String ActualErrormessage=ErrorLabel.getText();
+        getELocation(ErrorLabel);
+       if(ActualErrormessage.equals(ExpectedErrromesage))
        {
           Logger.Log(LOG_FILE,"invalidlogin","Error message matches",driver,true);
-           Logger.Log(LOG_FILE,"invalidlogin","Expected"+ExpectedErrromesage+"Actual"+ActualErrormsg,driver,true);
+           Logger.Log(LOG_FILE,"invalidlogin","Expected"+ExpectedErrromesage+"Actual"+ActualErrormessage,driver,true);
        }
     }
     }

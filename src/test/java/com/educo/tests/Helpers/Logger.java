@@ -36,18 +36,29 @@ public  class Logger {
             fstream = new FileWriter(LOG_FILE,true);
             BufferedWriter out_file = new BufferedWriter(fstream);
             Date timeStamp = new Date();
+            File dest;
 
-            String className = success ? "alternateItem" : "error";
+            String className = success ? "NoIssues" : "error";
             StringBuilder builder = new StringBuilder();
             imageCounter += 1;
-            screenShooter(LOG_FILE,driver,screenPath + imageCounter);
+           // screenShooter(LOG_FILE,driver,screenPath + imageCounter);
+            String Outputfilepath=  screenPath + imageCounter;
+            System.setProperty("org.uncommons.reportng.escape-output", "false");
+            if (!Outputfilepath.endsWith(".png")) {
+                Outputfilepath = Outputfilepath + ".png";
+            }
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            dest = new File(Outputfilepath);
+            FileUtils.copyFile(scrFile,dest);
+            String absolute = dest.getAbsolutePath();
+
+
             Reporter.log(
                     "<tr class=\"" +className +"\">" +
                     "<td>" + command  + "</td>" +
                     "<td>" + description + "</td>" +
                     "<td> <br/>" +
-                    "<a href='D:\\GitHub Checkout\\EducoUnitTests\\logs\\screenshots\\screenshot"
-                    + imageCounter + ".png'> Screenshot </a><br/> </td></tr>" );
+                    "<a href=" + absolute +"> Screenshot </a><br/> </td></tr>" );
 
             out_file.write("["+timeStamp+"] " + command);
             System.out.println("["+timeStamp+"] " + command);

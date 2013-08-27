@@ -1,6 +1,7 @@
 package com.educo.tests.PageOBjects.InsHomePage;
 
 
+import com.educo.tests.Common.CommonMethods;
 import com.educo.tests.Helpers.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsHomePageObjects {
+public class InsHomePageObjects extends CommonMethods {
 
 
     public static WebDriver driver;
@@ -33,32 +34,21 @@ public class InsHomePageObjects {
 
     public InsHomePageObjects(WebDriver adriver) {
 
+        super(adriver);
         driver=adriver;
         wait = new WebDriverWait(driver, timeOut);
-
         driver.manage().window().maximize();
     }
 
     public void SelectSection(WebElement element)
     {
         waitforFrametoLoad("main");
-        waitforElementtoLoad(element);
-        element.click();
-
-
-
+        WaitforElementToLoadAndClick(element);
+        Logger.Log(LOG_FILE,"SelectSection","Select Go button"+element.getAttribute("name"),driver,true);
     }
-    public void waitforElementtoLoad(WebElement element)
-    {
-        wait.until(ExpectedConditions.visibilityOf(element));
 
-    }
     //-------------------- SYNC ---------------------------
-    public void waitforFrametoLoad(String Framename)  {
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Framename));
-        Logger.Log(LOG_FILE,"waitforFrametoLoad", "Switching to Frame" + Framename, driver,true);
 
-    }
     public List<WebElement> giveMeAList()
     {
         ArrayList<WebElement> elements = new ArrayList<WebElement>();

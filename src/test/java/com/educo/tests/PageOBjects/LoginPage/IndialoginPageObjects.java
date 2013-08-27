@@ -51,20 +51,20 @@ public class IndialoginPageObjects extends CommonMethods {
     public void typeInUserName(String username) {
 
        sendtext(userInput,username);
-       Logger.Log(LOG_FILE, "typeInUserName", "Inputting << " + username + " >> in the username field... ", driver, true);
+       Logger.Log(LOG_FILE, "typeInUserName", "Inputting << " + username + " >> in the username field... "+userInput.getAttribute("name"), driver, true);
 
     }
 
     public void typeInPassword(String password) {
 
       sendtext(passwordInput,password);
-      Logger.Log(LOG_FILE, "typeInPassword", "Inputting << " + password + " >> in the password field... ", driver, true);
+      Logger.Log(LOG_FILE, "typeInPassword", "Inputting << " + password + " >> in the password field... "+passwordInput.getAttribute("name"), driver, true);
     }
 
     public void clickLoginButton() {
 
         WaitforElementToLoadAndClick(loginButton);
-        Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton+" button... ", driver, true);
+        Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton.getAttribute("name")+" button... ", driver, true);
 
     }
 
@@ -84,7 +84,8 @@ public class IndialoginPageObjects extends CommonMethods {
         {
         Switchtodefaultcontetn();
         WaitforElementToLoadAndClick(logoutlink);
-        Logger.Log(LOG_FILE,"logout","Verify URL and Log out",driver,true);  }
+            Logger.Log(LOG_FILE,"logout","Clicked on Logout element"+logoutlink.getAttribute("id"),driver,true);
+            Logger.Log(LOG_FILE,"logout","Verify URL and Log out",driver,true);  }
     }
 
 
@@ -101,15 +102,15 @@ public class IndialoginPageObjects extends CommonMethods {
     private void openIndiaPage() {
 
         OpenWebPage(Credentials.India_URL);
-        Logger.Log(LOG_FILE,"openIndiaPage","Opening URL"+Credentials.India_URL,driver,true);
+        Logger.Log(LOG_FILE,"openIndiaPage","Opening URL "+Credentials.India_URL,driver,true);
     }
 
     public void verifyUserLoggedIn(String name) {
-        driver.switchTo().defaultContent();
+
         waitforElementtoLoad(Bannername);
         String Proffessorname = Bannername.getText();
         if (Proffessorname.equals(name)) {
-            Logger.Log(LOG_FILE,"verifyUserLoggedIn","Checks Logged in User name Matches"+ name + Proffessorname,driver,true);
+            Logger.Log(LOG_FILE,"verifyUserLoggedIn","Checks Logged in User name Matches "+"Actual name\n"+ name +"Expected name"+ Proffessorname,driver,true);
             System.out.println("Name matches" + name + Proffessorname);
         }
 

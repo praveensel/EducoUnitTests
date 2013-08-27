@@ -188,6 +188,14 @@ public class SyllabusPageObjects extends CommonMethods{
 
         driver.manage().window().maximize();
     }
+
+    public  void GoToSyllabusPage()
+    {
+        driver.switchTo().defaultContent();
+        Mousehover(ToolsMenu);
+        Mousehover(SyllabusSubMenu);
+    }
+
     /**
      Add Syllabus form Tools\Syllabus Page
      */
@@ -203,6 +211,7 @@ public class SyllabusPageObjects extends CommonMethods{
              } catch (AssertionError e) {
 
                  Logger.Log(LOG_FILE,"Exception in method ",e.getMessage(),driver,false);
+                 System.out.println(e.getMessage());
              }
              SyllabusTitletxtbox.sendKeys("test1");
              Authornaemtxtbox.sendKeys("test");
@@ -218,12 +227,7 @@ public class SyllabusPageObjects extends CommonMethods{
 
      }
 
-    public  void GoToSyllabusPage()
-    {
-        driver.switchTo().defaultContent();
-        Mousehover(ToolsMenu);
-        Mousehover(SyllabusSubMenu);
-    }
+
     public  void AddResponseSheet()
     {
         driver.switchTo().defaultContent();

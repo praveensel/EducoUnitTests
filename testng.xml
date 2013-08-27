@@ -20,9 +20,8 @@
         <classes>
 
 
-            <class name="com.educo.tests.TestCases.Logintests"><methods>
-                <exclude name="Login_As_Instructor_USA"/>
-                    <exclude name="InvalidLoginPromptTest"/>
+            <class name="com.educo.tests.TestCases.InsHomePagetests"><methods>
+
 
             </methods></class>
             
