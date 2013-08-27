@@ -44,7 +44,7 @@ public class InsHomePageObjects extends CommonMethods {
     {
         waitforFrametoLoad("main");
         WaitforElementToLoadAndClick(element);
-        Logger.Log(LOG_FILE,"SelectSection","Select Go button"+element.getAttribute("name"),driver,true);
+        Logger.Log(LOG_FILE,"SelectSection","Select Go button",driver,true);
     }
 
     //-------------------- SYNC ---------------------------
