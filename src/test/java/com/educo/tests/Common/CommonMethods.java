@@ -44,6 +44,7 @@ public class CommonMethods {
     public void WaitforElementToLoadAndClick(WebElement element)
     {
         wait.until(ExpectedConditions.visibilityOf(element));
+        Logger.Log(LOG_FILE,"waitandClick","Clicking element " +element.getAttribute("id"),driver,true);
         element.click();
 
 

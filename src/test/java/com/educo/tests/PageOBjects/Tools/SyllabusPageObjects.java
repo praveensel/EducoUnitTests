@@ -3,6 +3,7 @@ package com.educo.tests.PageOBjects.Tools;
 import com.educo.tests.Common.CommonMethods;
 import com.educo.tests.Helpers.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.remote.ErrorHandler;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -179,6 +180,10 @@ public class SyllabusPageObjects extends CommonMethods{
     @CacheLookup
     public WebElement SaveResponseSheet;
 
+    @FindBy(how = How.ID_OR_NAME ,using = "TxtMaxAttemps")
+    @CacheLookup
+    public WebElement TxtMaxAttemps;
+
 
 
     public SyllabusPageObjects(WebDriver adriver) {
@@ -209,8 +214,9 @@ public class SyllabusPageObjects extends CommonMethods{
              try {
                  Assert.assertEquals(AddEditSy.getText(), "Add/Edit Syllbus");
              } catch (AssertionError e) {
-
-                 Logger.Log(LOG_FILE,"Exception in method ",e.getMessage(),driver,false);
+                 String M = e.getMessage().replaceAll("<", "#");
+                 String M1=M.replaceAll(">","#");
+                 Logger.Log(LOG_FILE,"Exception in method ",M1,driver,false);
                  System.out.println(e.getMessage());
              }
              SyllabusTitletxtbox.sendKeys("test1");
@@ -220,34 +226,41 @@ public class SyllabusPageObjects extends CommonMethods{
              Uploadbutton.click();
              addsyllbusbtnOK.click();
          } catch (Exception e) {
-             e.getClass();
-             e.getLocalizedMessage();
+
              Logger.Log(LOG_FILE,"Exception in method "+e.getMessage()+e.getStackTrace().getClass(),e.getLocalizedMessage(),driver,false);
          }
 
      }
 
 
-    public  void AddResponseSheet()
+    public  void AddResponseSheet()  throws UnhandledAlertException ,NoSuchElementException
     {
-        driver.switchTo().defaultContent();
-        waitforFrametoLoad("main");
-        waitforElementtoLoad(ResponseSheettab);
-        ResponseSheettab.click();
-        String Survenme="TestResponseSheet";
-        sendtext(SurveyName,Survenme);
-        btnCreateSurvey.click();
-        FramesetSwitch("frmLeft");
-        String Responsesheettitlestr=ResponseSheetTitle.getText();
-        VerifyTextPresent(Responsesheettitlestr,Survenme);
 
+        try {
+            driver.switchTo().defaultContent();
+            waitforFrametoLoad("main");
+            WaitforElementToLoadAndClick(ResponseSheettab);
+            String Survenme="TestResponseSheet";
+            sendtext(SurveyName,Survenme);
+            sendtext(TxtMaxAttemps,"10");
+            WaitforElementToLoadAndClick(btnCreateSurvey);
+            FramesetSwitch("frmLeft");
+            String Responsesheettitlestr=ResponseSheetTitle.getText();
+            VerifyTextPresent(Responsesheettitlestr,Survenme);
+        } catch (UnhandledAlertException e) {
+            Logger.Log(LOG_FILE,"Exception in method AddResponseSheet", e.getAlertText(),driver,false);
+        }
+        catch (NoSuchElementException e)
+        {
 
+            Logger.Log(LOG_FILE,"Exception in method AddResponseSheet", e.getSupportUrl(),driver,false);
+        }
 
     }
 
-    public void addQuestion()
+    public void addQuestion()  throws Exception
     {
-        driver.switchTo().defaultContent();
+       try{ driver.switchTo().defaultContent();
         waitforFrametoLoad("main");
         FramesetSwitch("frmRight");
         AddQuestion.click();
@@ -270,6 +283,13 @@ public class SyllabusPageObjects extends CommonMethods{
         waitforFrametoLoad("main");
         FramesetSwitch("frmRight");
         SaveResponseSheet.click();
+       }
+        catch (Exception e)
+        {
+
+            Logger.Log(LOG_FILE,"Exception in method AddResponseSheet", e.getMessage(),driver,false);
+
+        }
 
     }
 

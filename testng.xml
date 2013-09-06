@@ -14,15 +14,15 @@
 
 
     <test name="Distributed testing" >
-        <parameter name="browser" value="chrome"/>
-        <parameter name="RunMode" value="grid"/>
-        <parameter name="PlatformName" value="ANY"/>
+        <parameter name="browser" value="firefox"/>
+        <parameter name="RunMode" value="webdriver"/>
+        <parameter name="PlatformName" value="VISTA"/>
         <parameter name="browserVersion" value=""/>
         <parameter name="HostUrl" value="http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"/>
         <classes>
 
-          <class name="com.educo.tests.TestCases.Logintests"/>
-            <class name="com.educo.tests.TestCases.InsHomePagetests"/>
+          <class name="com.educo.tests.TestCases.SyllabusPageTests"/>
+
 
 
         </classes>
