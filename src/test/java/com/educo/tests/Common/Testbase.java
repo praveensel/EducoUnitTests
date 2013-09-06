@@ -55,8 +55,8 @@ public class Testbase {
                 caps.setCapability("platform",PlatformName);
                 caps.setBrowserName(browser);
                 caps.setVersion(browserVersion);
-                threadDriver.set(new RemoteWebDriver(caps));
-                //threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
+                //threadDriver.set(new RemoteWebDriver(caps));
+                threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
 
             }
 
@@ -78,9 +78,9 @@ public class Testbase {
                 caps.setCapability("platform", PlatformName);
                 caps.setBrowserName(browser);
                 caps.setVersion(browserVersion);
-                threadDriver.set(new RemoteWebDriver(caps));
+               // threadDriver.set(new RemoteWebDriver(caps));
 
-                //threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
+                threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
 
             }
             else
