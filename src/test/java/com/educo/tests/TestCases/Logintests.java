@@ -1,92 +1,29 @@
 package com.educo.tests.TestCases;
 
 
+import com.educo.tests.Common.Testbase;
 import com.educo.tests.Helpers.Staticprovider;
 import com.educo.tests.PageOBjects.LoginPage.IndialoginPageObjects;
 import com.educo.tests.PageOBjects.LoginPage.UsaLoginPageObjects;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import org.testng.Reporter;
+import org.testng.annotations.Test;
 
 
-public class Logintests {
+public class Logintests extends Testbase {
 
-
-    public  WebDriver driver;
-
-    @Parameters({"browser"})
-    @BeforeClass
-    public void propsetup(@Optional("firefox") String browser) {
-        com.educo.tests.Common.Properties.Properties.setProperties();
-        System.setProperty("org.uncommons.reportng.stylesheet","C://Custommcss//report.css");
-    }
-
-    @BeforeTest
-    public void b4test() {
-
-        System.out.println("@BeforeTest");
-       // FileUtils.deleteDirectory(new File());
-    }
-    @BeforeSuite
-    public void BeforeSuite() throws IOException {
-       System.out.println("@BeforeSuite");
-       FileUtils.deleteDirectory(new File(".\\logs\\screenshots\\"));
-    }
-    @Parameters({"browser"})
-    @BeforeMethod
-    public void setup(@Optional("chrome") String browser) throws MalformedURLException, InterruptedException {
-        com.educo.tests.Common.Properties.Properties.setProperties();
-        DesiredCapabilities capability = null;
-
-        if (browser.equalsIgnoreCase("chrome")) {
-            System.out.println("chrome");
-            System.setProperty("webdriver.chrome.driver", "C://ChromeDriver//chromedriver.exe");
-            capability = DesiredCapabilities.chrome();
-            capability.setBrowserName("chrome");
-            capability.setPlatform(org.openqa.selenium.Platform.ANY);
-            //capability.setVersion("");
-            driver = new ChromeDriver();
-
-        }
-
-
-        if (browser.equalsIgnoreCase("Firefox")) {
-            System.out.println("Firefox");
-            capability = DesiredCapabilities.firefox();
-            capability.setBrowserName("firefox");
-            capability.setPlatform(org.openqa.selenium.Platform.WINDOWS);
-            driver = new FirefoxDriver();
-            System.out.println(driver);
-        }
-        System.setProperty("webdriver.chrome.driver", "D://Selnium//chromedriver.exe");
-        // driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
-
-
-    }
-
-    @AfterSuite
-    protected void afterclass() {
-
-        driver.close();
-
-    }
 
 
     @Test(dataProviderClass = Staticprovider.class, dataProvider = "UsaLogin")
     public void Login_As_Instructor_USA(String EmailInsUsa, String Password, String Profname) throws Exception {
 
 
-        UsaLoginPageObjects usapage = PageFactory.initElements(driver, UsaLoginPageObjects.class);
-        //Thread.sleep(1000);
+        if(threadDriver.get()!=null)
+        {
+            findRemoteip(threadDriver.get());
+        }
+
+        UsaLoginPageObjects usapage = PageFactory.initElements(getDriver(), UsaLoginPageObjects.class);
         usapage.loginAndVerifyUSA(EmailInsUsa, Password, Profname);
         usapage.logout();
 
@@ -95,17 +32,27 @@ public class Logintests {
 
     @Test(dataProviderClass = Staticprovider.class, dataProvider = "IndiaLogin")
     public void Login_As_Instructor_India(String EmailInsIndia, String Password, String Profname) throws Exception {
+        if(threadDriver.get()!=null)
+        {
+            findRemoteip(threadDriver.get());
+        }
 
-        IndialoginPageObjects LoginPagePageobj1 = PageFactory.initElements(driver, IndialoginPageObjects.class);
+        IndialoginPageObjects LoginPagePageobj1 = PageFactory.initElements(getDriver(), IndialoginPageObjects.class);
         LoginPagePageobj1.loginAndVerifyIndia(EmailInsIndia, Password, Profname);
         LoginPagePageobj1.logout();
 
     }
 
-    @Test(groups = {"pain"}, dataProviderClass = Staticprovider.class, dataProvider = "InvalidLogin")
+    @Test(dataProviderClass = Staticprovider.class, dataProvider = "InvalidLogin")
     public void InvalidLoginPromptTest(String uName, String Password) throws Exception {
 
-        UsaLoginPageObjects usapage1 = PageFactory.initElements(driver, UsaLoginPageObjects.class);
+        if(threadDriver.get()!=null)
+        {
+           findRemoteip(threadDriver.get());
+        }
+
+
+        UsaLoginPageObjects usapage1 = PageFactory.initElements(getDriver(), UsaLoginPageObjects.class);
         usapage1.invalidlogin("ed@test.com", "Password");
 
 

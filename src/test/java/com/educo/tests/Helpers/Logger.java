@@ -1,10 +1,13 @@
 package com.educo.tests.Helpers;
 
+import com.educo.tests.Common.Testbase;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
@@ -15,7 +18,7 @@ import java.io.IOException;
 import java.util.Date;
 
 
-public  class Logger {
+public  class Logger extends Testbase {
 
 
 
@@ -26,11 +29,17 @@ public  class Logger {
             + File.separator;
     private  static String screenPath = screenDirPath + "screenshot";
     private   String logFileName = "log.html";
-    private   String logPath = reportPath + logFileName;
-    private static int countReport=0;
+
 
     public static   void Log(String LOG_FILE,String command, String description,WebDriver driver,boolean success) {
         try{
+
+
+            String Check= String.valueOf(driver);
+            if(Check.contains("RemoteWebDriver"))
+            {
+                driver  =new Augmenter().augment(driver);
+            }
 
             FileWriter fstream;
             fstream = new FileWriter(LOG_FILE,true);

@@ -30,6 +30,8 @@ public class IndialoginPageObjects extends CommonMethods {
     public WebElement logoutlink;
     @FindBy(how = How.ID, using = "ECFBanner1_lblUName")  @CacheLookup
     public WebElement Bannername;
+    @FindBy(how=How.ID_OR_NAME,using="btnContinue")  @CacheLookup
+    public  WebElement btnContinue;
     public WebDriver driver;
     public WebDriverWait wait;
     public String LOG_FILE = "src\\Test\\REPORT.log";
@@ -63,8 +65,9 @@ public class IndialoginPageObjects extends CommonMethods {
 
     public void clickLoginButton() {
 
-        WaitforElementToLoadAndClick(loginButton);
         Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton.getAttribute("name")+" button... ", driver, true);
+        WaitforElementToLoadAndClick(loginButton);
+
 
     }
 
@@ -75,8 +78,19 @@ public class IndialoginPageObjects extends CommonMethods {
         typeInUserName(name);
         typeInPassword(pass);
         clickLoginButton();
+        System.out.println(driver.getTitle());
+
+        if(driver.getTitle().equalsIgnoreCase("Educosoft Requirements"))
+        { passReqpage();}
 
     }
+
+    public void passReqpage()
+    {
+
+        WaitforElementToLoadAndClick(btnContinue);
+    }
+
 
     public void logout() {
         String CurrentUrl = driver.getCurrentUrl();
@@ -84,7 +98,7 @@ public class IndialoginPageObjects extends CommonMethods {
         {
         Switchtodefaultcontetn();
         WaitforElementToLoadAndClick(logoutlink);
-            Logger.Log(LOG_FILE,"logout","Clicked on Logout element"+logoutlink.getAttribute("id"),driver,true);
+            Logger.Log(LOG_FILE,"logout","Clicked on Logout element",driver,true);
             Logger.Log(LOG_FILE,"logout","Verify URL and Log out",driver,true);  }
     }
 
@@ -110,7 +124,7 @@ public class IndialoginPageObjects extends CommonMethods {
         waitforElementtoLoad(Bannername);
         String Proffessorname = Bannername.getText();
         if (Proffessorname.equals(name)) {
-            Logger.Log(LOG_FILE,"verifyUserLoggedIn","Checks Logged in User name Matches "+"Actual name\n"+ name +"Expected name"+ Proffessorname,driver,true);
+            Logger.Log(LOG_FILE,"verifyUserLoggedIn","Checks Logged in User name Matches "+"Actual name\n"+ name +"\nExpected name"+ Proffessorname,driver,true);
             System.out.println("Name matches" + name + Proffessorname);
         }
 

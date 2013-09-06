@@ -40,6 +40,9 @@
     @FindBy(how=How.CLASS_NAME , using = "errormsg") @CacheLookup
     public   WebElement ErrorLabel;
 
+    @FindBy(how=How.ID_OR_NAME,using="btnContinue")  @CacheLookup
+    public  WebElement btnContinue;
+
     public  WebDriver driver;
     protected int timeOut = 30;
     public   WebDriverWait wait;
@@ -48,6 +51,7 @@
 
     //-------------------- CONSTRUCTOR --------------------
     public  UsaLoginPageObjects(WebDriver adriver) {
+
      super(adriver);
      driver=adriver;
      wait = new WebDriverWait(driver, timeOut);
@@ -72,7 +76,7 @@
     public void clickLoginButton(){
 
         WaitforElementToLoadAndClick(loginButton);
-        Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton.getAttribute("name")+" button... ", driver, true);
+       // Logger.Log(LOG_FILE, "clickLoginButton", "Clicking "+loginButton.getAttribute("name")+" button... ", driver, true);
     }
 
     public  void openUsaPage()
@@ -90,7 +94,15 @@
     typeInUserName(name);
     typeInPassword(pass);
     clickLoginButton();
+    if(driver.getTitle().equalsIgnoreCase("Educosoft Requirements"))
+    { passReqpage();}
 
+    }
+
+    public void passReqpage()
+    {
+
+        WaitforElementToLoadAndClick(btnContinue);
     }
 
 
@@ -130,7 +142,7 @@
          String Proffessorname=Bannername.getText();
          if (Proffessorname.equals(name))
         {
-          //  Logger.Log(LOG_FILE,"Name matches",driver);
+            Logger.Log(LOG_FILE,"verifyUserLoggedIn","Checks Logged in User name Matches "+"Actual name\n"+ name +"\nExpected name"+ Proffessorname,driver,true);
             System.out.println("Name matches"+name+Proffessorname);
 
         }
@@ -155,7 +167,7 @@
        if(ActualErrormessage.equals(ExpectedErrromesage))
        {
           Logger.Log(LOG_FILE,"invalidlogin","Error message matches",driver,true);
-           Logger.Log(LOG_FILE,"invalidlogin","Expected"+ExpectedErrromesage+"Actual"+ActualErrormessage,driver,true);
+          Logger.Log(LOG_FILE,"invalidlogin","Expected"+ExpectedErrromesage+"Actual"+ActualErrormessage,driver,true);
        }
     }
     }

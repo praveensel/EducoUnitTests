@@ -29,6 +29,8 @@ public class CommonMethods {
         wait = new WebDriverWait(this.driver,timeOut);
     }
 
+
+
     public void Switchtodefaultcontetn() {
         driver.switchTo().defaultContent();
         Logger.Log(LOG_FILE, "Switchtodefaultcontetn", "Switching to default content", driver, true);

@@ -19,7 +19,7 @@ public class Gridtest
     @BeforeTest public void setup() throws MalformedURLException
     {
         baseUrl = "http://newtours.demoaut.com";
-        nodeURL = " http://192.168.100.18:5555/wd/hub";
+        nodeURL = "http://localhost:4444/wd/hub";
         DesiredCapabilities capability = DesiredCapabilities.firefox();
         capability.setBrowserName( "firefox");
         //capability.setPlatform(Platform.XP);

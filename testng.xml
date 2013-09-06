@@ -4,29 +4,34 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 
-    <suite name ="EducoTest"  parallel="methods"    >
+    <suite name ="EducosoftTest Suite"  parallel="classes"    >
 
     <listeners>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-
         <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-
     </listeners>
 
 
 
-    <test name="FF Test in Windows 7 Sytem" >
-
+    <test name="Distributed testing" >
+        <parameter name="browser" value="chrome"/>
+        <parameter name="RunMode" value="grid"/>
+        <parameter name="PlatformName" value="ANY"/>
+        <parameter name="browserVersion" value=""/>
+        <parameter name="HostUrl" value="http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"/>
         <classes>
 
+          <class name="com.educo.tests.TestCases.Logintests"/>
+            <class name="com.educo.tests.TestCases.InsHomePagetests"/>
 
-            <class name="com.educo.tests.TestCases.InsHomePagetests"><methods>
 
-
-            </methods></class>
-            
-            
         </classes>
+    </test>
+    <test name="Firefox in Windows 7 Sytem" >
+        <parameter name="browser" value="Firefox"/>
+        <parameter name="RunMode" value="grid"/>
+        <parameter name="HostUrl" value="http://192.168.100.24:5555/wd/hub"/>
+
     </test>
 
 
