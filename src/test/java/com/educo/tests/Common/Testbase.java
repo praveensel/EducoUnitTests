@@ -19,10 +19,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
-import org.openqa.selenium.remote.Augmenter;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.HttpCommandExecutor;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.*;
 import org.testng.Reporter;
 import org.testng.annotations.*;
 
@@ -42,7 +39,7 @@ public class Testbase {
     public void setUp(@Optional("chrome") String browser,
                       @Optional("grid") String RunMode ,
                       @Optional("http://localhost:4444/wd/hub")String HostUrl,
-                      @Optional("ANY")String PlatformName,
+                      @Optional("VISTA")String PlatformName,
                       @Optional("")String browserVersion)                    throws MalformedURLException {
 
         if ((browser.equalsIgnoreCase("chrome"))) {
@@ -52,11 +49,11 @@ public class Testbase {
                 threadDriver = new ThreadLocal<RemoteWebDriver>();
                 DesiredCapabilities caps = new DesiredCapabilities();
                 caps.setBrowserName(browser);
-                caps.setCapability("platform",PlatformName);
+                caps.setCapability("platform", PlatformName);
                 caps.setBrowserName(browser);
                 caps.setVersion(browserVersion);
-                //threadDriver.set(new RemoteWebDriver(caps));
-                threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
+                threadDriver.set(new RemoteWebDriver(caps));
+                //threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
 
             }
 
@@ -78,9 +75,10 @@ public class Testbase {
                 caps.setCapability("platform", PlatformName);
                 caps.setBrowserName(browser);
                 caps.setVersion(browserVersion);
-               // threadDriver.set(new RemoteWebDriver(caps));
 
-                threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
+                threadDriver.set(new RemoteWebDriver(caps));
+
+                //threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
 
             }
             else
@@ -99,6 +97,7 @@ public class Testbase {
                 DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
                 caps.setCapability("platform", PlatformName);
                 caps.setVersion(browserVersion);
+
                 threadDriver.set(new RemoteWebDriver(caps));
                // threadDriver.set(new RemoteWebDriver(new URL("http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"),caps));
 

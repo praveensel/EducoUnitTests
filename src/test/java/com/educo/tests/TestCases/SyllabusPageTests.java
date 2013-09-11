@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
@@ -34,7 +35,11 @@ public class SyllabusPageTests extends Testbase{
     @Test(dataProviderClass = Staticprovider.class,dataProvider = "UsaLogin1")
     public void Syllabustest(String EmailInsUsa,String Password,String Profname) throws Exception {
 
-
+        if(threadDriver.get()!=null)
+        {
+            findRemoteip(threadDriver.get());
+            threadDriver.get().setFileDetector(new LocalFileDetector());
+        }
         UsaLoginPageObjects LoginPagePageobj= PageFactory.initElements(getDriver(), UsaLoginPageObjects.class);
         LoginPagePageobj.openUsaPage();
         LoginPagePageobj.login(EmailInsUsa, Password);
@@ -48,4 +53,6 @@ public class SyllabusPageTests extends Testbase{
         syllabusPageObjects.addQuestion();
 
     }
+
+
 }

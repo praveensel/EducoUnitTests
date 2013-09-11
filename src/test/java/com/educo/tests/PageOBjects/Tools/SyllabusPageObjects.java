@@ -138,7 +138,7 @@ public class SyllabusPageObjects extends CommonMethods{
     public WebElement lblQuestcapt;
 
     @FindBy(how = How.XPATH ,using = "//html/body")
-    @CacheLookup
+
     public WebElement MultpleChcQstnTxtBox;
 
     @FindBy(how = How.ID_OR_NAME ,using = "options")
@@ -183,6 +183,10 @@ public class SyllabusPageObjects extends CommonMethods{
     @FindBy(how = How.ID_OR_NAME ,using = "TxtMaxAttemps")
     @CacheLookup
     public WebElement TxtMaxAttemps;
+
+    @FindBy(how=How.XPATH,using =("//html/body"))
+    @CacheLookup
+    public WebElement QuesytionChocie ;
 
 
 
@@ -260,24 +264,35 @@ public class SyllabusPageObjects extends CommonMethods{
 
     public void addQuestion()  throws Exception
     {
-       try{ driver.switchTo().defaultContent();
+       try{
+        driver.switchTo().defaultContent();
         waitforFrametoLoad("main");
         FramesetSwitch("frmRight");
         AddQuestion.click();
         waitforFrametoLoad("main");
-        boolean result=lblQuestcapt.getText().contains("Question Description");
-        waitforFrametoLoad("RadEditor2_contentIframe");
-        waitforElementtoLoad(MultpleChcQstnTxtBox);
-        sendtext(MultpleChcQstnTxtBox, "Q1rrrrrr");
+        waitforFrametoLoad("mce_editor_0");
+        driver.findElement(By.xpath("//html/body")).sendKeys("Q Desc");
+        driver.switchTo().defaultContent();
+        waitforFrametoLoad("main");
+        waitforFrametoLoad("mce_editor_1");
+        sendtext(MultpleChcQstnTxtBox, "Q1");
+        driver.switchTo().defaultContent();
+        waitforFrametoLoad("main");
+        waitforFrametoLoad("mce_editor_2");
+        sendtext(MultpleChcQstnTxtBox, "Q2");
+        driver.switchTo().defaultContent();
+        waitforFrametoLoad("main");
+        waitforFrametoLoad("mce_editor_3");
+        sendtext(MultpleChcQstnTxtBox, "Q3");
+        driver.switchTo().defaultContent();
+        waitforFrametoLoad("main");
+        waitforFrametoLoad("mce_editor_4");
+        sendtext(MultpleChcQstnTxtBox, "Q4");
         Switchtodefaultcontetn();
         waitforFrametoLoad("main");
-        QstnOptionstab.click();
-        boolean result1=txtNoOptions.getText().contains("5");
-        sendtext(answerbox2,"ans1");
-        sendtext(answerbox3,"ans2");
-        sendtext(answerbox4,"ans3");
-        sendtext(answerbox5,"ans4");
-        sendtext(answerbox6,"ans4");
+           if (!driver.findElement(By.id("dgdAnsopt_ctl02_chkOptSel")).isSelected()) {
+               driver.findElement(By.id("dgdAnsopt_ctl02_chkOptSel")).click();
+           }
         btnSaveQstn.click();
         Switchtodefaultcontetn();
         waitforFrametoLoad("main");
@@ -288,10 +303,14 @@ public class SyllabusPageObjects extends CommonMethods{
         {
 
             Logger.Log(LOG_FILE,"Exception in method AddResponseSheet", e.getMessage(),driver,false);
-
+            throw(e);
         }
 
+
+
+
     }
+
 
 
 

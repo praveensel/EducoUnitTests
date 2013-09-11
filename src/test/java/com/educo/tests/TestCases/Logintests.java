@@ -5,6 +5,7 @@ import com.educo.tests.Common.Testbase;
 import com.educo.tests.Helpers.Staticprovider;
 import com.educo.tests.PageOBjects.LoginPage.IndialoginPageObjects;
 import com.educo.tests.PageOBjects.LoginPage.UsaLoginPageObjects;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
@@ -49,6 +50,7 @@ public class Logintests extends Testbase {
         if(threadDriver.get()!=null)
         {
            findRemoteip(threadDriver.get());
+            threadDriver.get().setFileDetector(new LocalFileDetector());
         }
 
 

@@ -32,6 +32,8 @@
     <test name="Distributed testing Chrome" >
         <parameter name="browser" value="chrome"/>
         <parameter name="RunMode" value="grid"/>
+        <parameter name="PlatformName" value="ANY"/>
+        <parameter name="browserVersion" value=""/>
         <parameter name="HostUrl" value="http://192.168.100.24:5555/wd/hub"/>
         <classes>
 
