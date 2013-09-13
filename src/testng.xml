@@ -15,7 +15,7 @@
 
     <test name="Distributed testing firefox" >
         <parameter name="browser" value="firefox"/>
-        <parameter name="RunMode" value="grid"/>
+        <parameter name="RunMode" value="webdriver"/>
         <parameter name="PlatformName" value="ANY"/>
         <parameter name="browserVersion" value=""/>
         <parameter name="HostUrl" value="http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"/>
@@ -26,25 +26,9 @@
             <class name="com.educo.tests.TestCases.SyllabusPageTests"/>
 
 
-
         </classes>
     </test>
-    <test name="Distributed testing Chrome" >
-        <parameter name="browser" value="chrome"/>
-        <parameter name="RunMode" value="grid"/>
-        <parameter name="PlatformName" value="ANY"/>
-        <parameter name="browserVersion" value=""/>
-        <parameter name="HostUrl" value="http://192.168.100.24:5555/wd/hub"/>
-        <classes>
 
-            <class name="com.educo.tests.TestCases.InsHomePagetests"></class>
-            <class name="com.educo.tests.TestCases.Logintests"/>
-            <class name="com.educo.tests.TestCases.SyllabusPageTests"/>
-
-
-
-        </classes>
-    </test>
 
 
 </suite>
