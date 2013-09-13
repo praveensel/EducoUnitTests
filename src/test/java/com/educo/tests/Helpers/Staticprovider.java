@@ -66,12 +66,12 @@ public  class Staticprovider extends CommonMethods {
 
 
 }
-    @DataProvider(name= "StudentLogin")
+    /*@DataProvider(name= "StudentLogin")
     public  static  Object[][] Studentloginprovider() throws IOException, BiffException {
         Object[][] retObjArr= (readExcelSheet("C://Employee.xls"));
            return  retObjArr;
 
 
-    }
+    } */
 
 }
