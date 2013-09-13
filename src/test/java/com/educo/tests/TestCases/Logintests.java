@@ -19,7 +19,7 @@ public class Logintests extends Testbase {
     public void Login_As_Instructor_USA(String EmailInsUsa, String Password, String Profname) throws Exception {
 
 
-        if(threadDriver.get()!=null)
+        if(threadDriver!=null)
         {
             findRemoteip(threadDriver.get());
         }

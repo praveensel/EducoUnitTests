@@ -32,7 +32,7 @@ import java.net.MalformedURLException;
 
     @Test(dataProviderClass = Staticprovider.class,dataProvider = "UsaLogin")
     public void Sectiontest(String EmailInsUsa,String Password,String Profname ) throws IOException, JSONException {
-        if(threadDriver.get()!=null)
+        if(threadDriver!=null)
         {
             findRemoteip(threadDriver.get());
         }
