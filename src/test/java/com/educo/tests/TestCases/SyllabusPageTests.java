@@ -35,7 +35,7 @@ public class SyllabusPageTests extends Testbase{
     @Test(dataProviderClass = Staticprovider.class,dataProvider = "UsaLogin1")
     public void Syllabustest(String EmailInsUsa,String Password,String Profname) throws Exception {
 
-        if(threadDriver.get()!=null)
+        if(threadDriver!=null)
         {
             findRemoteip(threadDriver.get());
             threadDriver.get().setFileDetector(new LocalFileDetector());
