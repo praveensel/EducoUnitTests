@@ -2,7 +2,6 @@ package com.educo.tests.Helpers;
 
 import com.educo.tests.Common.CommonMethods;
 import com.educo.tests.Common.Properties.Properties;
-import com.educo.tests.TestCases.StudentLogin;
 import jxl.read.biff.BiffException;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.DataProvider;
