@@ -74,6 +74,19 @@
     <orderEntry type="library" name="Maven: org.webbitserver:webbit:0.4.14" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty:3.5.2.Final" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-support:2.35.0" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jxl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://C:/Program Files/Java/jdk1.7.0_25/src.zip!/" />
+          <root url="jar://C:/Program Files/Java/jdk1.7.0_25/src.zip!/" />
+          <root url="file://D:/Downloads/jexcelapi_2_6_12/jexcelapi/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
 

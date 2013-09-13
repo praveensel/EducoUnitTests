@@ -37,9 +37,9 @@ public class Testbase {
     @Parameters({"browser","RunMode","HostUrl","PlatformName","browserVersion"})
     @BeforeMethod()
     public void setUp(@Optional("chrome") String browser,
-                      @Optional("grid") String RunMode ,
+                      @Optional("webdriver") String RunMode ,
                       @Optional("http://localhost:4444/wd/hub")String HostUrl,
-                      @Optional("VISTA")String PlatformName,
+                      @Optional("ANY")String PlatformName,
                       @Optional("")String browserVersion)                    throws MalformedURLException {
 
         if ((browser.equalsIgnoreCase("chrome"))) {

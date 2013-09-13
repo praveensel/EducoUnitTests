@@ -1,12 +1,17 @@
 package com.educo.tests.Common;
 
 import com.educo.tests.Helpers.Logger;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -143,6 +148,35 @@ public class CommonMethods {
             }
 
     }
+    public static String[][] readExcelSheet(String destFile) throws IOException, BiffException {
+        File excelSheet = null;
+        Workbook workbook = null;
+
+        String[][] email = null;
+
+
+        Workbook wb = Workbook.getWorkbook(new File(destFile));
+        System.out.println(wb.getNumberOfSheets());
+        Sheet sheet = wb.getSheet("UserLogins");
+        int sRow,sCol, eRow, eCol,ci,cj;
+        int columns = sheet.getColumns();
+        int rows = sheet.getRows();
+        String[][] tabArray=null;
+        sRow=1;
+        sCol=0;
+        // Cell tableEnd= sht.findCell(tbName, sCol+1,sRow+1, 100, 64000, false);
+        eRow=19;
+        eCol=3;
+        System.out.println("startRow="+sRow+", endRow="+eRow+", " + "startCol="+sCol+", endCol="+eCol);
+        tabArray=new String[eRow-sRow-1][eCol-sCol-1];
+        ci=0;
+        for (int i=sRow+1;i<eRow;i++,ci++){
+            cj=0;
+            for (int j=sCol+1;j<eCol;j++,cj++){
+                tabArray[ci][cj]=sheet.getCell(j,i).getContents();
+            }
+        }
+        return tabArray;}
     //----------------Open a WebPage--------------------------
     public void OpenWebPage(String URL)
     {

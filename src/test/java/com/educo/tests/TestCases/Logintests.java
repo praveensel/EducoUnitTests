@@ -33,7 +33,7 @@ public class Logintests extends Testbase {
 
     @Test(dataProviderClass = Staticprovider.class, dataProvider = "IndiaLogin")
     public void Login_As_Instructor_India(String EmailInsIndia, String Password, String Profname) throws Exception {
-        if(threadDriver.get()!=null)
+        if(threadDriver!=null)
         {
             findRemoteip(threadDriver.get());
         }
@@ -47,7 +47,7 @@ public class Logintests extends Testbase {
     @Test(dataProviderClass = Staticprovider.class, dataProvider = "InvalidLogin")
     public void InvalidLoginPromptTest(String uName, String Password) throws Exception {
 
-        if(threadDriver.get()!=null)
+        if(threadDriver!=null)
         {
            findRemoteip(threadDriver.get());
             threadDriver.get().setFileDetector(new LocalFileDetector());
