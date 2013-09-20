@@ -21,9 +21,9 @@
         <parameter name="HostUrl" value="http://PraveenSelenium:dc653317-36d8-44d8-88a0-76816c4fd7b5@ondemand.saucelabs.com:80/wd/hub"/>
         <classes>
 
-            <class name="com.educo.tests.TestCases.InsHomePagetests"></class>
+
             <class name="com.educo.tests.TestCases.Logintests"/>
-            <class name="com.educo.tests.TestCases.SyllabusPageTests"/>
+
 
 
         </classes>
