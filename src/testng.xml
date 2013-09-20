@@ -22,7 +22,7 @@
         <classes>
 
 
-            <class name="com.educo.tests.TestCases.Logintests"/>
+            <class name="com.educo.tests.TestCases.Logintests"> <methods><include name="Login_As_Instructor_India"></include></methods> </class>
 
 
 
