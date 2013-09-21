@@ -36,6 +36,7 @@ public class Logintests extends Testbase {
         if(threadDriver!=null)
         {
             findRemoteip(threadDriver.get());
+            System.out.print("t");
         }
 
         IndialoginPageObjects LoginPagePageobj1 = PageFactory.initElements(getDriver(), IndialoginPageObjects.class);
